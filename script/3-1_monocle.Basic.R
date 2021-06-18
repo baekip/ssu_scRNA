@@ -12,8 +12,15 @@ suppressMessages({
 set.seed(123)
 options (bitmapType='cairo')
 sample.id = args[1]
-in.path = args[2]
-out.path = args[3]
+project.path = args[2]
+
+in.path = paste0 (project.path, "/result/2-3_Seurat_Basic/", sample.id)
+out.path = paste0 (proect.path, "/result/3-1_Monocle_QC/", sample.id)
+rdata.path = paste0 (out.path, "/Rdata/")
+
+dir.create (out.path, showWarnings = FALSE)
+dir.create (rdata.path, showWarnings = FALSE)
+
 ncom.tsne <- readRDS (file = paste0(in.path, "/Rdata/", sample.id, ".tSNE.Rda"))
 #1.Make monocle data set--------------------------------------------------------
 data <- as(as.matrix(ncom.tsne@assays$RNA@data), 'sparseMatrix')
@@ -82,12 +89,10 @@ monocle_cds.CC.OC <- orderCells(monocle_cds.CC.rD)
 
 
 ###Rearrange Levels-------------------------------------------------------------
-#monocle_cds.CC.OC <- readRDS (file = paste0(out.path, "/Rdata/", sample.id, ".monocle_cds.check.rds"))
 monocle_cds.CC.OC$orig.ident <- factor (x=monocle_cds.CC.OC$orig.ident,
                                         levels = c("10X_hiPSC", "10X_Scl", "10X_Cp", 
                                                    "10X_D1", "10X_D7", "10X_D14", "10X_D28", "10X_D42"))
 monocle_cds.CC.OC$orig.ident
-#Idents(monocle_cds.CC.OC)
 
 tiff(file = paste0(out.path, "/total_trjactory_sample.tiff"),
      units = "in", width = 5, height = 5, res = 300)

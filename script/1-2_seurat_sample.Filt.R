@@ -10,9 +10,16 @@ suppressMessages({
 args = commandArgs(TRUE)
 options (bitmapType = 'cairo')
 sample.id = args[1]
-input.path = args[2]
-output.path = args[3]
+project.path = args[2]
+input.path = paste0(project.path, "/result/1-1_Seurat_QC/", sample.id)
+output.path = paste0(project.path, "/result/1-2_Seurat_Filt/", sample.id)
+filt.path = paste0 (output.path, "/Filt/")
+rdata.path = paste0 (output.path, "/Rdata/")
 sample.id
+
+dir.create(output.path, showWarnings = FALSE)
+dir.create(filt.path, showWarnings = FALSE)
+dir.create(rdata.path, showWarnings = FALSE)
 
 #min.nGene = noquote(args[4])
 min.nGene = 200
@@ -22,7 +29,6 @@ max.nUMI = Inf
 min.mito = -Inf
 max.mito = 5
 
-filt.path = paste0 (output.path, "/Filt/")
 
 ###load QC.Rda
 sample.orig = readRDS (file = paste0 (input.path, "/Rdata/", sample.id, ".QC.Rda"))

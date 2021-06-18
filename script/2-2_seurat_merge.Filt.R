@@ -10,17 +10,22 @@ suppressMessages({
 args = commandArgs(TRUE)
 options (bitmapType = 'cairo')
 sample.id = args[1]
-input.path = args[2]
-output.path = args[3]
-#min.nGene = noquote(args[4])
+project.path = args[2]
+input.path = paste0 (project.path, "/result/2-1_Seurat_QC/", sample.id)
+output.path = paste0 (project.path, "/result/2-2_Seurat_Filt/", sample.id)
+filt.path = paste0 (output.path, "/Filt/")
+rdata.path = paste0 (output.path, "/Rdata/")
+
+dir.create (output.path, showWarnings = FALSE)
+dir.create (filt.path, showWarnings = FALSE)
+dir.create (rdata.path, showWarnings = FALSE)
+#------------------------------------------------
 min.nGene = 200 
 max.nGene = 7000 
 min.nUMI = -Inf
 max.nUMI = Inf
 min.mito = -Inf
 max.mito = 5 
-
-filt.path = paste0 (output.path, "/Filt/")
 
 ###load QC.Rda
 sample.merge <- readRDS (file = paste0 (input.path, "/Rdata/", sample.id, ".Merge.Rda"))

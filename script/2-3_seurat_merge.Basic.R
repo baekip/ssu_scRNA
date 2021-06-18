@@ -11,10 +11,17 @@ suppressMessages({
 set.seed(123)
 args = commandArgs(TRUE)
 options (bitmapType = 'cairo')
-sample.id = "ALL_C59"
-input.path = args[1]
-output.path = args[2]
+sample.id = args[1]
+project.path = args[2]
+
+input.path = paste0 (project.path, "/result/2-2_Seurat_Filt/", sample.id)
+output.path = paste0 (project.path, "/result/2-3_Seurat_Basic/", sample.id)
+rdata.path = paste0 (output.path, "/Rdata/")
 basic.path = paste0 (output.path, "/Basic/")
+
+dir.create (output.path, showWarnings = FALSE)
+dir.create (basic.path, showWarnings = FALSE)
+dir.create (rdata.path, showWarnings = FALSE)
 
 ###load QC.Rda
 sample.filt <- readRDS (file = paste0 (input.path, "/Rdata/", sample.id, ".Filt.Rda"))

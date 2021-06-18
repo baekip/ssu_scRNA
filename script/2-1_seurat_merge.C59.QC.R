@@ -10,10 +10,16 @@ suppressMessages({
 args = commandArgs(TRUE)
 options (bitmapType = 'cairo')
 sample.id = args[1]
-input.path = args[2]
-output.path = args[3]
-
+project.path = args[2]
+input.path = paste0 (project.path, "/result/1-1_Seurat_QC/")
+output.path = paste0 (project.path, "/result/2-1_Seurat_QC/")
 qc.path = paste0 (output.path, "/QC/")
+rdata.path = paste0 (output.path, "/Rdata/")
+
+
+dir.create(output.path, showWarnings = FALSE)
+dir.create(qc.path, showWarnings = FALSE)
+dir.create(rdata.path, showWarnings = FALSE)
 
 ###load QC.Rda
 hiPSC = readRDS (file = paste0 (input.path, "/hiPSC/Rdata/hiPSC.QC.Rda"))

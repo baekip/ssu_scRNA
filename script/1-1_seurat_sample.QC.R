@@ -10,11 +10,18 @@ suppressMessages({
 args = commandArgs(TRUE)
 options (bitmapType = 'cairo')
 sample.id = args[1]
-input.path = args[2]
-output.path = args[3]
-sample.id
-work.path = input.path
+project.path = args[2]
+input.path = paste0(project.path, "/data/", sample.id)
+output.path = paste0(project.path, "/result/1-1_Seurat_QC/", sample.id)
 qc.path = paste0 (output.path, "/QC/")
+rdata.path = paste0 (output.path, "/Rdata/")
+sample.id
+
+dir.create(output.path, showWarnings = FALSE)
+dir.create(qc.path, showWarnings = FALSE)
+dir.create(rdata.path, showWarnings = FALSE)
+################################################################################
+work.path = input.path
 sample.data <- Read10X(data.dir = work.path)
 sample.orig <- CreateSeuratObject (counts = sample.data,
 																	 min.cells = 3,

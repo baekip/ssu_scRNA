@@ -12,9 +12,16 @@ set.seed(123)
 args = commandArgs(TRUE)
 options (bitmapType = 'cairo')
 sample.id = args[1]
-input.path = args[2]
-output.path = args[3]
+project.path = args[2]
+input.path = paste0(project.path, "/result/1-2_Seurat_Filt/", sample.id)
+output.path = paste0(project.path, "/result/1-2_Seurat_Basic/", sample.id)
 basic.path = paste0 (output.path, "/Basic/")
+rdata.path = paste0 (output.path, "/Rdata/")
+sample.id
+
+dir.create(output.path, showWarnings = FALSE)
+dir.create(basic.path, showWarnings = FALSE)
+dir.create(rdata.path, showWarnings = FALSE)
 
 ###load QC.Rda
 sample.filt <- readRDS (file = paste0 (input.path, "/Rdata/", sample.id, ".Filt.Rda"))
